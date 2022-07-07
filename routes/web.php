@@ -15,23 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('guest.welcome');
-});
+})->name('home');
 
 Auth::routes();
-
-//Route::get('home', 'HomeController@index')->name('home');
-
-Route::middleware('auth') 
+Route::middleware('auth')
     ->name('admin.')
     ->prefix('admin')
     ->namespace('Admin')
-    ->group( function(){
-        //rotte protette
-       Route::get('/', 'HomeController@index')->name('home');
-       //rotte CRUD
-       Route::resource('pizze', 'PizzaController');
-    })
-;
+    ->group(function(){
+        Route::get('/', 'PageController@index')->name('index');
+        Route::resource('pizzas','PizzaController');
+    });
 
+// Route::middleware('auth')->get('/admin', 'Admin\PageController@index')->name('admin');
 
-
+// Route::get('/admin', 'HomeController@index')->name('admin');
