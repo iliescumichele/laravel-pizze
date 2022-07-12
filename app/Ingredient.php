@@ -5,20 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Pizza extends Model
+class Ingredient extends Model
 {
-
-    public function ingredients(){
-        return $this->belongsToMany( 'App\Ingredient' );
+    
+    public function pizzas(){
+        return $this->belongsToMany( 'App\Pizza' );
     }
 
-    protected $fillable=[
-        'nome',
-        'slug',
-        'ingredienti',
-        'prezzo',
-        'vegetariana'
-    ];
 
     public static function genSlug($nome){
         $slug = Str::slug($nome,'-');
