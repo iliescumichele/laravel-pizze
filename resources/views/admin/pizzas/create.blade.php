@@ -51,6 +51,8 @@
                   Non vegetariana
                 </label>
               </div>
+
+
               {{-- @else --}}
               {{-- <div class="form-check">
                 <input class="form-check-input" type="radio"  name="vegetariana" value="1" id="vegetariana" >
@@ -72,18 +74,35 @@
             <div class="mb-3">
               <label  class="form-label">New ingredients</label>
 
-            <textarea name="ingredienti" id="ingredienti" cols="90" rows="5" value="{{old('ingredienti')}}"
+              <textarea name="ingredienti" id="ingredienti" cols="90" rows="5" value="{{old('ingredienti')}}"
 
-            @error('ingredienti')
-            is-invalid
-        @enderror
+                @error('ingredienti')
+                is-invalid
+                @enderror
             >
               </textarea>
-              @error('ingredienti')
-             <p style="color: red">{{$message}}</p>
+                @error('ingredienti')
+                <p style="color: red">{{$message}}</p>
 
-            @enderror
+                @enderror
             </div>
+
+            @foreach ($ingredients as $ingredient)
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="{{$ingredient->id}}"
+                        id="ingredient{{$loop->iteration}}"
+                        name="ingredients[]"
+                        @if(in_array($ingredient->id, old("ingredients", []))) checked @endif>
+                    <label class="form-check-label mr-3" for="ingredient{{$loop->iteration}}">
+                        {{$ingredient->name}}
+                    </label>
+                </div>
+            @endforeach
+
+
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
 

@@ -59,16 +59,31 @@
               {{-- <input type="text" name="nome" class="form-control" id="nome" > --}}
             </div>
 
-            <div class="mb-3">
+            {{-- <div class="mb-3">
               <label  class="form-label">New ingredients</label>
 
-              {{-- <input type="text" value="{{old($pizza->ingredienti)}}" name="ingredienti" id="ingredienti"> --}}
 
 
               <textarea name="ingredienti" id="ingredienti" cols="90" rows="5" value="{{old($pizza->ingredienti)}}">
 
               </textarea>
-            </div>
+            </div> --}}
+
+            <label  class="form-label">New ingredients</label>
+            @foreach ($ingredients as $ingredient)
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="{{$ingredient->id}}"
+                        id="ingredient{{$loop->iteration}}"
+                        name="ingredients[]"
+                        @if(in_array($ingredient->id, old("ingredients", []))) checked @endif>
+                    <label class="form-check-label mr-3" for="ingredient{{$loop->iteration}}">
+                        {{$ingredient->name}}
+                    </label>
+                </div>
+            @endforeach
         <button type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-primary" href="{{route('admin.pizzas.index')}}"><- Go back</a>
       </form>

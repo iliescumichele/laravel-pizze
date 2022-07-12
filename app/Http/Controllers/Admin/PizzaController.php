@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Pizza;
+use App\Ingredient;
 
 class PizzaController extends Controller
 {
@@ -28,7 +29,8 @@ class PizzaController extends Controller
      */
     public function create()
     {
-        return view('admin.pizzas.create');
+        $ingredients = Ingredient::all();
+        return view('admin.pizzas.create', compact("ingredients"));
     }
 
     /**
@@ -84,7 +86,8 @@ class PizzaController extends Controller
     public function edit($id)
     {
         $pizza = Pizza::find($id);
-        return view('admin.pizzas.edit', compact('pizza'));
+        $ingredients = Ingredient::all();
+        return view('admin.pizzas.edit', compact('pizza', 'ingredients'));
     }
 
     /**
